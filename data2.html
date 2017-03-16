@@ -17,6 +17,7 @@ th,td {
 <button type="button" onclick="loadJSONDoc()">Get my CD collection</button>
 <br><br>
 <table id="mymusic"></table>
+<p id="test"></p>
 
 <script>
 function loadJSONDoc()
@@ -46,20 +47,33 @@ function myFunction(json)
   //console.log(y);
 
   var table="<tr><th>Artist</th><th>Title</th></tr>";
-
+  sortit = []; // global variable to be accesed by sortAuthor()
   for(i=0; i<y.length; i++)
   {  
     console.log(y[i].TITLE);
-    //document.getElementById("mymusic").innerHTML += y[i].TITLE; 
-
+    //console.log(typeof(sortit));
+    //console.log("----------------------")
+    sortit.push(y[i].TITLE)
+    console.log(typeof(sortit)); // array with all the pushed elem.
+ 
     table += "<tr><td>" + y[i].ARTIST +
     "</td><td>" + y[i].TITLE +
     "</td></tr>";
   }
+  console.log(sortit); // is an array
   document.getElementById("mymusic").innerHTML = table;
-  }
+}
 
+function sortAuthor()
+{
+  var s=sortit.sort();
+  //console.log(sortit.sort()); 
+   document.getElementsByTagName("td")[1].innerHTML = s[0]; 
+}
 </script>
+<!-- BEGIN "To Do Notes"" -->
+  Complete "for loop" , bubble sort or quick sort. Each iteration will place the sorted "Title" or "Artist, etc in the corrsponding <td> field.
+ <!-- END "To Do Notes"" -->
 
 </body>
 </html>
