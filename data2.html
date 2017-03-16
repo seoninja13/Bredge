@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+<body>
+ <!-- BEGIN Sorting out "Artist" --> 
+<button id="sort_author" onclick="sortAuthor()">Sort</button>
+<!-- END Sorting out "Artist" --> 
+
+<button type="button" onclick="loadJSONDoc()">Get my CD collection</button>
+<br><br>
+<table id="mymusic"></table>
+
+<script>
+function loadJSONDoc()
+{
+  var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function()
+    {
+      if (this.readyState == 4 && this.status == 200) {
+       myFunction(this);
+    }
+};
+  xmlhttp.open("GET", "mydata.txt", true);
+  xmlhttp.send();
+}
+function myFunction(json)
+{
+  var i;
+  //var xmlDoc = xml.responseXML;
+  var jsonTxt = json.responseText;
+  //console.log(jsonTxt);
+  var jsonObj = JSON.parse(jsonTxt);
+  console.log(jsonObj);
+
+  var x = jsonObj.CATALOG;
+  //console.log(x);
+  var y = jsonObj.CATALOG.CD;
+  //console.log(y);
+
+  var table="<tr><th>Artist</th><th>Title</th></tr>";
+
+  for(i=0; i<y.length; i++)
+  {  
+    console.log(y[i].TITLE);
+    //document.getElementById("mymusic").innerHTML += y[i].TITLE; 
+
+    table += "<tr><td>" + y[i].ARTIST +
+    "</td><td>" + y[i].TITLE +
+    "</td></tr>";
+  }
+  document.getElementById("mymusic").innerHTML = table;
+  }
+
+</script>
+
+</body>
+</html>
